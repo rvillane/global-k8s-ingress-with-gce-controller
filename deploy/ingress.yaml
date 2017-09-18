@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    ##ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: server-with-root-context-svc
+    servicePort: 8080
+  rules:
+  - http:
+      paths:
+      - path: /foo
+        backend:
+          serviceName: server-with-root-context-svc
+          servicePort: 8080
+      - path: /bar
+        backend:
+          serviceName: server-without-root-context-svc
+          servicePort: 8080
+  

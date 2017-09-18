@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-without-root-context-svc
+  labels:
+    app: server-without-root-context
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    nodePort: 30049
+  selector:
+    app: server-without-root-context
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: server-without-root-context
+spec:
+  replicas: 2
+  template:
+    metadata:
+      annotations:
+        federation.kubernetes.io/deployment-preferences: |
+          {
+            "rebalance": true,
+            "clusters": {
+              "east-cluster": {
+                  "minReplicas": 1
+              },
+              "west-cluster": {
+                  "minReplicas": 1
+              }
+            }
+          }
+      labels:
+        app: server-without-root-context
+    spec:
+      containers:
+        - name: app-without-root-context
+          image: cgrant/server-without-root-context
+          ports:
+            - containerPort: 8080
