@@ -4,7 +4,7 @@
 # Global Ingress
 
 ```
-export PROJECT=hd-$(whoami)-$(date +%y%m%d)-ingress
+export PROJECT=$(whoami)-$(date +%y%m%d)-ingress
 export BILLING=00AA00-111111111-0000000
 export DNS_ZONE=ingress.my.domain.com.
 ```
