@@ -18,6 +18,6 @@ spec:
           servicePort: 8080
       - path: /bar
         backend:
-          serviceName: server-without-root-context-svc
+          serviceName: server-with-root-context-svc
           servicePort: 8080
   
