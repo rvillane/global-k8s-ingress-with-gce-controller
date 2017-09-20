@@ -121,7 +121,7 @@ git clone https://github.com/cgrant/global-k8s-ingress-with-gce-controller.git
 cd global-k8s-ingress-with-gce-controller
 
 kubectl apply -f deploy/app-with-context.yaml
-kubectl apply -f deploy/app-without-context.yaml
+kubectl apply -f deploy/simple-echo.yaml
 
 kubectl apply -f deploy/ingress.yaml
 

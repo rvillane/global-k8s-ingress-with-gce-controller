@@ -8,7 +8,7 @@ spec:
   type: NodePort
   ports:
   - port: 8080
-    nodePort: 30049
+    nodePort: 30050
   selector:
     app: simple-echo
 ---
