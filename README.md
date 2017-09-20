@@ -3,8 +3,9 @@
 
 # Global Ingress
 
+## Create the cluster
 
-## Set some variables
+### Set some variables
 ```
 export PROJECT=$(whoami)-$(date +%y%m%d)-ingress
 export BILLING=00AA00-111111111-0000000
@@ -12,7 +13,7 @@ export DNS_ZONE=ingress.my.domain.com.
 ```
 
 
-## Create the project
+### Create the project (optional)
 ```
 gcloud projects create ${PROJECT}
 gcloud beta billing projects link ${PROJECT} --billing-account=${BILLING}
@@ -20,7 +21,8 @@ gcloud beta billing projects link ${PROJECT} --billing-account=${BILLING}
 gcloud config set project ${PROJECT}
 ```
 
-### Enable some APIs
+**Enable some APIs**
+
 ```
 gcloud service-management enable compute.googleapis.com \
 --project=$PROJECT
@@ -31,12 +33,12 @@ gcloud service-management enable dns.googleapis.com \
 
 ```
 
-## Create the DNS Zone to be used
+**Create the DNS Zone to be used**
 gcloud dns managed-zones create federation \
   --description "Kubernetes federation zone" \
   --dns-name ${DNS_ZONE}
 
-## Create clusters
+### Create clusters
 
 ```
 gcloud container clusters create west-cluster \
@@ -61,7 +63,7 @@ kubectl config set-context west --cluster=gke_${PROJECT}_us-west1-a_west-cluster
 
 ```
 
-## Step 2 - Install and Join to kubefed
+### Install and Join to kubefed
 Here were using kubefed to initialize the federation using the "east" context
 ```
 
@@ -102,13 +104,16 @@ kubectl --context=kfed create ns default
 kubectl --context=kfed get clusters
 ```
 
-## Create Global IP for the Ingress LoadBalancer
+
+## Use the cluster
+
+### Create Global IP for the Ingress LoadBalancer
 
 ```
 gcloud compute addresses create ingress-ip --global
 ```
 
-## Deploy to Cluster
+### Deploy to Cluster
 
 ```
 git clone https://github.com/cgrant/global-k8s-ingress-with-gce-controller.git
