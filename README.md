@@ -3,6 +3,8 @@
 
 # Global Ingress
 
+
+## Set some variables
 ```
 export PROJECT=$(whoami)-$(date +%y%m%d)-ingress
 export BILLING=00AA00-111111111-0000000
@@ -10,7 +12,7 @@ export DNS_ZONE=ingress.my.domain.com.
 ```
 
 
-Create the project
+## Create the project
 ```
 gcloud projects create ${PROJECT}
 gcloud beta billing projects link ${PROJECT} --billing-account=${BILLING}
@@ -18,24 +20,34 @@ gcloud beta billing projects link ${PROJECT} --billing-account=${BILLING}
 gcloud config set project ${PROJECT}
 ```
 
-Enable some APIs
+### Enable some APIs
 ```
-gcloud service-management enable compute-component.googleapis.com \
+gcloud service-management enable compute.googleapis.com \
 --project=$PROJECT
 gcloud service-management enable container.googleapis.com \
 --project=$PROJECT
+gcloud service-management enable dns.googleapis.com \
+--project=$PROJECT
+
 ```
 
-
+## Create the DNS Zone to be used
+gcloud dns managed-zones create federation \
+  --description "Kubernetes federation zone" \
+  --dns-name ${DNS_ZONE}
 
 ## Create clusters
 
 ```
 gcloud container clusters create west-cluster \
-  --zone us-west1-a --scopes "cloud-platform,storage-ro,logging-write,monitoring-write,service-control,service-management,https://www.googleapis.com/auth/ndev.clouddns.readwrite"
+  --zone us-west1-a \
+  --cluster-version 1.7.5 \
+  --scopes "cloud-platform,storage-ro,logging-write,monitoring-write,service-control,service-management,https://www.googleapis.com/auth/ndev.clouddns.readwrite"
 
 gcloud container clusters create east-cluster \
-  --zone us-east1-b --scopes  "cloud-platform,storage-ro,logging-write,monitoring-write,service-control,service-management,https://www.googleapis.com/auth/ndev.clouddns.readwrite"
+  --zone us-east1-b \
+  --cluster-version 1.7.5 \
+  --scopes  "cloud-platform,storage-ro,logging-write,monitoring-write,service-control,service-management,https://www.googleapis.com/auth/ndev.clouddns.readwrite"
 ```
 
 

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-echo-svc
+  labels:
+    app: simple-echo
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    nodePort: 30049
+  selector:
+    app: simple-echo
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: simple-echo
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: simple-echo
+    spec:
+      containers:
+        - name: simple-echo
+          image: cgrant/simple-echo-server
+          ports:
+            - containerPort: 8080

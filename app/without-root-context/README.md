@@ -1,12 +1,10 @@
-# Simple app with root context
+# Simple app without root context
 
 
 Exposes:
-
-- /bar
-- /bar/baz
-- /bar/baz/foo
-
+- /foo
+- /foo/baz
+- /foo/baz/bar
 
 
 

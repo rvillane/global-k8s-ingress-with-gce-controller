@@ -5,17 +5,17 @@ app = Flask(__name__)
 
 
 
-@app.route("/bar")
+@app.route("/foo")
 def foo():
-    return "Hello from /bar "
+    return "Hello from /foo "
 
-@app.route("/bar/baz")
+@app.route("/foo/baz")
 def baz():
-    return "Hello from /bar/baz "
+    return "Hello from /foo/baz "
 
-@app.route("/bar/baz/foo")
+@app.route("/foo/baz/bar")
 def bar():
-    return "Hello from /bar/baz/foo "
+    return "Hello from /foo/baz/bar "
 
 
 if __name__ == "__main__":
