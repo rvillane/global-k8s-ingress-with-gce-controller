@@ -26,6 +26,8 @@ gcloud service-management enable container.googleapis.com \
 --project=$PROJECT
 ```
 
+
+
 ## Create clusters
 
 ```
@@ -88,6 +90,11 @@ kubectl --context=kfed create ns default
 kubectl --context=kfed get clusters
 ```
 
+## Create Global IP for the Ingress LoadBalancer
+
+```
+gcloud compute addresses create ingress-ip --global
+```
 
 ## Deploy to Cluster
 
