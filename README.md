@@ -51,6 +51,18 @@ gcloud container clusters create east-cluster \
   --cluster-version 1.7.5 \
   --scopes  "cloud-platform,storage-ro,logging-write,monitoring-write,service-control,service-management,https://www.googleapis.com/auth/ndev.clouddns.readwrite"
 ```
+### Get Credentials
+
+```
+gcloud container clusters get-credentials west-cluster --zone=us-west1-a
+
+gcloud container clusters get-credentials east-cluster --zone=us-east1-b
+
+
+```
+
+May need to do this...
+https://github.com/kubernetes/kubernetes/issues/42559
 
 
 ### Create aliases
